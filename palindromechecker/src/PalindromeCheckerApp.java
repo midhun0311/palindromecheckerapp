@@ -8,35 +8,31 @@ import java.util.Deque;
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        String input = "Level";
+        Scanner sc = new Scanner(System.in);
 
-        // Convert to lowercase to make it case-insensitive
-        input = input.toLowerCase();
+        System.out.print("Input: ");
+        String input = sc.nextLine();
 
-        // Create a LinkedList to store characters
-        LinkedList<Character> list = new LinkedList<>();
+        boolean result = check(input, 0, input.length() - 1);
 
-        // Add each character to the linked list
-        for (char c : input.toCharArray()) {
-            list.add(c);
+        System.out.println("Is Palindrome?: " + result);
+    }
+
+    private static boolean check(String s, int start, int end) {
+
+        // Base condition
+        if (start >= end) {
+            return true;
         }
 
-        // Flag to track palindrome state
-        boolean isPalindrome = true;
-
-        // Compare until only one or zero elements remain
-        while (list.size() > 1) {
-            char first = list.removeFirst();
-            char last = list.removeLast();
-
-            if (first != last) {
-                isPalindrome = false;
-                break;
-            }
+        // If characters are not equal
+        if (s.charAt(start) != s.charAt(end)) {
+            return false;
         }
 
-        // Output
-        System.out.println("Input : " + input.substring(0,1).toUpperCase() + input.substring(1));
-        System.out.println("Is Palindrome? : " + isPalindrome);
+        // Recursive call
+        return check(s, start + 1, end - 1);
     }
 }
+
+
