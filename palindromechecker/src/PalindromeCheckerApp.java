@@ -1,34 +1,38 @@
 import java.util.Scanner;
-import java.util.Stack;
-import java.util.*;
-import java.util.LinkedList;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+class PalindromeService {
+
+    public boolean checkPalindrome(String input) {
+
+        int start = 0;
+        int end = input.length() - 1;
+
+        while (start < end) {
+
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+
+            start++;
+            end--;
+        }
+
+        return true;
+    }
+}
+
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
+        System.out.println("Input:");
+        String str = sc.nextLine();
 
-        System.out.print("Input: ");
-        String input = sc.nextLine();
+        PalindromeService ps = new PalindromeService();
+        boolean result = ps.checkPalindrome(str);
 
-        // Normalize the string (remove spaces & symbols, convert to lowercase)
-        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-
-        boolean isPalindrome = true;
-
-        // Compare characters from start and end
-        for (int i = 0, j = normalized.length() - 1; i < j; i++, j--) {
-
-            if (normalized.charAt(i) != normalized.charAt(j)) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        System.out.println("Is Palindrome? " + isPalindrome);
-
-        sc.close();
+        System.out.println("Is Palindrome? : " + result);
     }
 }
+
