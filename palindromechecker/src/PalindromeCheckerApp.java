@@ -1,38 +1,46 @@
-import java.util.Scanner;
+import java.util.Stack;
 
-class PalindromeService {
+// Interface
+interface PalindromeStrategy {
+    boolean check(String input);
+}
 
-    public boolean checkPalindrome(String input) {
+// Stack implementation
+class StackStrategy implements PalindromeStrategy {
 
-        int start = 0;
-        int end = input.length() - 1;
+    public boolean check(String input) {
 
-        while (start < end) {
+        Stack<Character> stack = new Stack<>();
 
-            if (input.charAt(start) != input.charAt(end)) {
-                return false;
-            }
-
-            start++;
-            end--;
+        // Push characters into stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
         }
 
-        return true;
+        // Create reversed string
+        String reversed = "";
+
+        while (!stack.isEmpty()) {
+            reversed = reversed + stack.pop();
+        }
+
+        // Compare strings
+        return input.equals(reversed);
     }
 }
 
+// Main class
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Input:");
-        String str = sc.nextLine();
+        String input = "level";
 
-        PalindromeService ps = new PalindromeService();
-        boolean result = ps.checkPalindrome(str);
+        PalindromeStrategy strategy = new StackStrategy();
 
-        System.out.println("Is Palindrome? : " + result);
+        boolean result = strategy.check(input);
+
+        System.out.println("Input: " + input);
+        System.out.println("Is Palindrome? " + result);
     }
 }
-
