@@ -1,46 +1,46 @@
-import java.util.Stack;
+import java.util.Scanner;
 
-// Interface
-interface PalindromeStrategy {
-    boolean check(String input);
-}
-
-// Stack implementation
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
-
-        Stack<Character> stack = new Stack<>();
-
-        // Push characters into stack
-        for (char c : input.toCharArray()) {
-            stack.push(c);
-        }
-
-        // Create reversed string
-        String reversed = "";
-
-        while (!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
-        }
-
-        // Compare strings
-        return input.equals(reversed);
-    }
-}
-
-// Main class
-public class PalindromeCheckerApp {
+public class
+PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String input = "level";
+        Scanner sc = new Scanner(System.in);
 
-        PalindromeStrategy strategy = new StackStrategy();
+        System.out.print("Input: ");
+        String input = sc.nextLine();
 
-        boolean result = strategy.check(input);
+        // Start time
+        long startTime = System.nanoTime();
 
-        System.out.println("Input: " + input);
-        System.out.println("Is Palindrome? " + result);
+        boolean isPalindrome = checkPalindrome(input);
+
+        // End time
+        long endTime = System.nanoTime();
+
+        long executionTime = endTime - startTime;
+
+        System.out.println("Is Palindrome? : " + isPalindrome);
+        System.out.println("Execution Time : " + executionTime + " ns");
+
+        sc.close();
+    }
+
+    public static boolean checkPalindrome(String str) {
+
+        int left = 0;
+        int right = str.length() - 1;
+
+        while (left < right) {
+
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
     }
 }
