@@ -13,26 +13,22 @@ public class PalindromeCheckerApp {
         System.out.print("Input: ");
         String input = sc.nextLine();
 
-        boolean result = check(input, 0, input.length() - 1);
+        // Normalize the string (remove spaces & symbols, convert to lowercase)
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        System.out.println("Is Palindrome?: " + result);
-    }
+        boolean isPalindrome = true;
 
-    private static boolean check(String s, int start, int end) {
+        // Compare characters from start and end
+        for (int i = 0, j = normalized.length() - 1; i < j; i++, j--) {
 
-        // Base condition
-        if (start >= end) {
-            return true;
+            if (normalized.charAt(i) != normalized.charAt(j)) {
+                isPalindrome = false;
+                break;
+            }
         }
 
-        // If characters are not equal
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
+        System.out.println("Is Palindrome? " + isPalindrome);
 
-        // Recursive call
-        return check(s, start + 1, end - 1);
+        sc.close();
     }
 }
-
-
